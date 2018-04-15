@@ -47,7 +47,8 @@ function computePolylineTripletAreas(polyline) {
  */
 function eliminatePoints(polyline, polylineWithAreas, percentage) {
   let sorted = polylineWithAreas.sort((a, b) => b[1] - a[1]);
-  let leftover = sorted.slice(0, Math.floor((sorted.length) * percentage));
+  let lastIndex = Math.max(2, Math.floor(sorted.length * percentage));
+  let leftover = sorted.slice(0, lastIndex);
   return leftover
     .sort((a, b) => a[0] - b[0])
     .map((a) => polyline[a[0]]);
