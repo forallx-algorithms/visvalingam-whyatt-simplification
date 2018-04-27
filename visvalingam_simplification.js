@@ -1,3 +1,5 @@
+const Heap = require('heap');
+
 /*
  * Visvalingam line simplification algorithm
  *
@@ -28,6 +30,9 @@ function computeTriangleArea(triangle) {
   );
 }
 
+/*
+ * @returns {Number[][]} Polyline tripleat areas with coord indexes 
+ */
 function computePolylineTripletAreas(polyline) {
   return polyline
     .map((coord, i) => {
@@ -43,15 +48,26 @@ function computePolylineTripletAreas(polyline) {
 }
 
 /*
+ * @param {Number} percentage How many points leave
  * @returns {Number[][]} polyline
  */
 function eliminatePoints(polyline, polylineWithAreas, percentage) {
-  let sorted = polylineWithAreas.sort((a, b) => b[1] - a[1]);
-  let lastIndex = Math.max(2, Math.floor(sorted.length * percentage));
-  let leftover = sorted.slice(0, lastIndex);
-  return leftover
-    .sort((a, b) => a[0] - b[0])
-    .map((a) => polyline[a[0]]);
+  //create heap
+  let heap = new Heap((a, b) => a[1] - b[1]);
+  for (let entry of polylineWithAreas) {
+    heap.push(entry);
+  }
+
+  let howManyDelete = Math.min(heap.size() - 2, heap.size() - Math.floor(heap.size() * percentage));
+  let toDelete = {};
+
+  for (let i = 0; i < howManyDelete; i++) {
+    let entry = heap.pop();
+    toDelete[entry[0]] = true
+  }
+
+  return polyline
+    .filter((coord, i) => !toDelete[i]);
 }
 
 /*
@@ -73,7 +89,7 @@ const test1Should = Math.pow(5, 2) / 2;
 console.log('Triangle case 1:', test1 == test1Should, test1, test1Should);
 
 const line1 = [[0, 0], [1, -1], [2, 0], [10, -10]];
-const test2 = visvalingamSimplification(line1, 30/40);
+const test2 = visvalingamSimplification(line1, 3/4);
 const test2Should = [[0, 0], [2, 0], [10, -10]];
 
 console.log('Visvalingam case 1:', test2.toString(), '==?', test2Should.toString());

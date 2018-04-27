@@ -1,0 +1,14 @@
+{
+  "name": "visvalingam-simplification",
+  "version": "1.0.0",
+  "description": "Visvalingam Whyatt geometry simplification algorithm",
+  "main": "visvalingam_simplification.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evgeniy Kuznetsov",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "heap": "^0.2.6"
+  }
+}
