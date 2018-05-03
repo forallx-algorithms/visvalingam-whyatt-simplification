@@ -8,7 +8,7 @@ const Heap = require('heap');
  */
 
 /*
- * @returns {Number} Lenght of a given line
+ * @returns {Number} Length of a given line
  */
 function computeLineLength(line) {
   let a = Math.pow(line[0][0] - line[1][0], 2);
@@ -35,7 +35,7 @@ function computeTriangleArea(triangle) {
 /*
  * @returns {Object}
  */
-function createPolylinePointEntry(area, index, leftIndex, rightIndex) {
+function createPointEntry(area, index, leftIndex, rightIndex) {
   return {
     area: area,
     index: index,
@@ -70,7 +70,7 @@ function linkPointEntries(left, right) {
  *  false otherwise
  */
 function updatePointEntryArea(polyline, entry) {
-  if (polyline[entry.left] && polyline[entry.right]) {
+  if (entry.left != null && entry.right != null) {
     entry.area = computePolylineAreaByPointEntry(polyline, entry);
     return true;
   } else {
@@ -87,8 +87,8 @@ function computePolylinePointEntries(polyline) {
     .map((coord, i) => {
       let isFirst = i == 0;
       let isLast = i == (polyline.length - 1);
-      let left = isFirst ? undefined : i - 1;
-      let right = isLast ? undefined : i + 1;
+      let left = isFirst ? null : i - 1;
+      let right = isLast ? null : i + 1;
 
       let area;
       if (isFirst || isLast) {
@@ -97,7 +97,7 @@ function computePolylinePointEntries(polyline) {
         area = computeTriangleArea([polyline[left], coord, polyline[right]]);
       }
 
-      return createPolylinePointEntry(area, i, left, right);
+      return createPointEntry(area, i, left, right);
     });
 }
 
