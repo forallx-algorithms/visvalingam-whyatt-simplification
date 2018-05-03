@@ -108,9 +108,9 @@ function computePolylinePointEntries(polyline) {
  */
 function eliminatePoints(polyline, pointEntries, percentage) {
   let deleted = {};
+  const l = pointEntries.length;
   // We always leave two points
-  let howManyDelete = Math.min(pointEntries.length - 2, 
-    pointEntries.length - Math.floor(pointEntries.length * percentage));
+  let howManyDelete = Math.min(l - 2, l - Math.floor(l * percentage));
 
   let heap = new Heap((a, b) => a.area - b.area);
   for (let entry of pointEntries) {
@@ -143,16 +143,7 @@ function visvalingamSimplification(polyline, percentage) {
     polyline, computePolylinePointEntries(polyline), percentage);
 }
 
-// section: Tests
-
-const triangle1 = [[0, 0], [5, 0], [0, 5]];
-const test1 = computeTriangleArea(triangle1);
-const test1Should = Math.pow(5, 2) / 2;
-
-console.log('Triangle case 1:', test1 == test1Should, test1, test1Should);
-
-const line1 = [[0, 0], [1, -1], [2, 0], [10, -10]];
-const test2 = visvalingamSimplification(line1, 3/4);
-const test2Should = [[0, 0], [2, 0], [10, -10]];
-
-console.log('Visvalingam case 1:', test2.toString(), '==?', test2Should.toString());
+module.exports = {
+  computeTriangleArea,
+  visvalingamSimplification
+};
