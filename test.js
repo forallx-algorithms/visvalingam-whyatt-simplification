@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const { computeTriangleArea, visvalingamSimplification } = require('./visvalingam_simplification');
+const { computeTriangleArea, visvalingamWhyattSimplification } = require('./visvalingam_whyatt_simplification');
 
-describe('Visvalingam simplification', () => {
+describe('Visvalingam Whyatt simplification', () => {
   describe('computeTriangleArea function', () => {
     it('should compute area of triangle', () => {
       const triangle = [[0, 0], [5, 0], [0, 5]];
@@ -11,7 +11,7 @@ describe('Visvalingam simplification', () => {
   
   });
 
-  describe('visvalingamSimplification', () => {
+  describe('visvalingamWhyattSimplification', () => {
     let exampleLine;
 
     beforeEach(() => {
@@ -19,12 +19,12 @@ describe('Visvalingam simplification', () => {
     });
 
     it('should leave 2 points', () => {
-      const test = visvalingamSimplification(exampleLine, 1/4);
+      const test = visvalingamWhyattSimplification(exampleLine, 1/4);
       expect(test.length).to.eql(2);
     });
 
     it('should simplify line (case 1)', () => {
-      const test = visvalingamSimplification(exampleLine, 3/4);
+      const test = visvalingamWhyattSimplification(exampleLine, 3/4);
       expect(test).to.eql([[0, 0], [2, 0], [10, -10]]);
     });
 
@@ -38,26 +38,26 @@ describe('Visvalingam simplification', () => {
         [666, 28]
       ];
 
-      const test1 = visvalingamSimplification(line, 6/6);
+      const test1 = visvalingamWhyattSimplification(line, 6/6);
       expect(test1).to.eql(line);
 
-      const test2 = visvalingamSimplification(line, 5/6);
+      const test2 = visvalingamWhyattSimplification(line, 5/6);
       const test2Should = line.slice(0, 3).concat(line.slice(4));
       expect(test2).to.eql(test2Should);
 
-      const test3 = visvalingamSimplification(line, 4/6);
+      const test3 = visvalingamWhyattSimplification(line, 4/6);
       const test3Should = test2Should.slice(0, 1).concat(test2Should.slice(2));
       expect(test3).to.eql(test3Should);
 
-      const test4 = visvalingamSimplification(line, 3/6);
+      const test4 = visvalingamWhyattSimplification(line, 3/6);
       const test4Should = test3Should.slice(0, 1).concat(test3Should.slice(2));
       expect(test4).to.eql(test4Should);
 
-      const test5 = visvalingamSimplification(line, 2/6);
+      const test5 = visvalingamWhyattSimplification(line, 2/6);
       const test5Should = test4Should.slice(0, 1).concat(test4Should.slice(2));
       expect(test5).to.eql(test5Should);
 
-      const test6 = visvalingamSimplification(line, 1/6);
+      const test6 = visvalingamWhyattSimplification(line, 1/6);
       expect(test6).to.eql(test5Should);
     });
   });

@@ -1,7 +1,7 @@
 const Heap = require('heap');
 
 /*
- * Visvalingam line simplification algorithm
+ * Visvalingam Whyatt line simplification algorithm
  *
  * @author Evgeniy Kuznetsov
  * @date 12 april 2018
@@ -138,12 +138,12 @@ function eliminatePoints(polyline, pointEntries, percentage) {
  * @param {Number} percentage Percentage of points left, must be within [0, 1]
  * @returns {Number[][]} Simplified polyline
  */
-function visvalingamSimplification(polyline, percentage) {
+function visvalingamWhyattSimplification(polyline, percentage) {
   return eliminatePoints(
     polyline, computePolylinePointEntries(polyline), percentage);
 }
 
 module.exports = {
   computeTriangleArea,
-  visvalingamSimplification
+  visvalingamWhyattSimplification
 };

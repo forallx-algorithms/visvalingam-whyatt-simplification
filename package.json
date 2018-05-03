@@ -1,8 +1,8 @@
 {
-  "name": "visvalingam-simplification",
+  "name": "visvalingam-whyatt-simplification",
   "version": "1.0.0",
   "description": "Visvalingam Whyatt geometry simplification algorithm",
-  "main": "visvalingam_simplification.js",
+  "main": "visvalingam_whyatt_simplification.js",
   "scripts": {
     "test": "mocha"
   },
